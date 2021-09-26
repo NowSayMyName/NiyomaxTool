@@ -25,7 +25,7 @@ async def add(ctx, *args):
             await ctx.send(msg)
 
 @bot.command(name='rm')
-async def add(ctx, *args):
+async def remove(ctx, *args):
     await ctx.message.delete()
     if len(args) != 3:
         await ctx.send("expected command: !rm \"section\" \"band\” \"music\"")
@@ -36,7 +36,7 @@ async def add(ctx, *args):
             await ctx.send(msg)
 
 @bot.command(name='redo')
-async def add(ctx):
+async def redo(ctx):
     await ctx.message.delete()
     lst_bands = await create_band_list_from_java(await ctx.channel.history(limit=200).flatten())
     for msg in create_messages("6 cordes", lst_bands): 

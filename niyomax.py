@@ -8,10 +8,10 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 
-@bot.command(name='list_channel')
-async def list_channel(ctx):
-    await ctx.send("using this channel as a guitar list")
+@bot.command(name='close')
+async def close(ctx):
     await ctx.message.delete()
+    await bot.close()
 
 @bot.command(name='add')
 async def add(ctx, *args):
@@ -134,10 +134,5 @@ def create_messages(section, lst_bands):
         lst_msgs.append(msg)
 
     return lst_msgs
-
-@bot.command(name='close')
-async def close(ctx):
-    await ctx.message.delete()
-    await bot.close()
 
 bot.run(TOKEN)

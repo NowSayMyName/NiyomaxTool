@@ -36,14 +36,11 @@ async def add(ctx, *args):
             await ctx.send(msg)
 
 @bot.command(name='redo')
-async def add(ctx, *args):
+async def add(ctx):
     await ctx.message.delete()
-    if len(args) != 0:
-        await ctx.send("expected command: !redo")
-    else:
-        lst_bands = await create_band_list_from_java(await ctx.channel.history(limit=200).flatten())
-        for msg in create_messages("6 cordes", lst_bands): 
-            await ctx.send(msg)
+    lst_bands = await create_band_list_from_java(await ctx.channel.history(limit=200).flatten())
+    for msg in create_messages("6 cordes", lst_bands): 
+        await ctx.send(msg)
 
 def is_in_tuple_list(lst, key):
     for list_key, obj in lst:

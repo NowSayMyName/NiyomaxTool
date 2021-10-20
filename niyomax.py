@@ -39,7 +39,7 @@ async def remove(ctx, *args):
 async def redo(ctx):
     await ctx.message.delete()
     lst_bands = await create_band_list_from_java(await ctx.channel.history(limit=200).flatten())
-    for msg in create_messages("6 cordes", lst_bands): 
+    for msg in create_messages("7 cordes", lst_bands): 
         await ctx.send(msg)
 
 def is_in_tuple_list(lst, key):
@@ -112,10 +112,17 @@ def create_messages(section, lst_bands):
     msg = "```md\n"
     msg += "> " + section + '\n'
     for name, lst_musics in sorted(lst_bands, key=lambda tup: tup[0]):
-        msg += "\n# " + name + "\n"
+        next_line = "\n# " + name + "\n"
+        if (len(msg) + len(next_line) + len("```")) >= 1990:
+            msg += "```"
+            lst_msgs.append(msg)
+            appended = True
+            msg = "```md\n"
+            msg += "> " + section + '\n'
+        msg += next_line
         for music in sorted(lst_musics):
             next_line = "* " + music + '\n'
-            if (len(msg) + len(next_line) + len("```")) >= 2000:
+            if (len(msg) + len(next_line) + len("```")) >= 1990:
                 msg += "```"
                 lst_msgs.append(msg)
                 appended = True
